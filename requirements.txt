@@ -1,0 +1,7 @@
+gTTS
+ipython
+openai
+Pillow
+streamlit
+streamlit_extras == 0.3.6 
+streamlit_option_menu
