@@ -47,7 +47,7 @@ if selected == "Bot":
     openai.api_key = st.secrets["API_KEY"]
 
     if "openai_model" not in st.session_state:
-        st.session_state["openai_model"] = "gpt-3.5-turbo"
+        st.session_state["openai_model"] = "gpt-3.5-turbo"  # Placeholder model identifier
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -61,20 +61,19 @@ if selected == "Bot":
         with st.chat_message(user_message):
             st.markdown(prompt)
 
-        with st.chat_message("assistant"):
-            message_placeholder = st.empty()
-            full_response = ""
-            for response in openai.ChatCompletion.create(
+        with st.spinner(text="Thinking..."):
+            response = openai.ChatCompletion.create(
                 model=st.session_state["openai_model"],
                 messages=[
                     {"role": m["role"], "content": m["content"]}
                     for m in st.session_state.messages
-                ],
-                stream=True,
-            ):
-                full_response += response.choices[0].delta.get("content", "")
-                message_placeholder.markdown(full_response + "▌")
-            message_placeholder.markdown(full_response)
+                ]
+            )
+
+        full_response = response.choices[0].message["content"].strip()
+
+        with st.chat_message("assistant"):
+            st.markdown(full_response)
 
             # Save TTS output to a unique file name
             tts = gTTS(full_response, lang='en')
