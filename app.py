@@ -47,7 +47,7 @@ if selected == "Bot":
     openai.api_key = st.secrets["API_KEY"]
 
     if "openai_model" not in st.session_state:
-        st.session_state["openai_model"] = "gpt-3.5-turbo" 
+        st.session_state["openai_model"] = "gpt-3.5-turbo"  # Placeholder model identifier
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -62,25 +62,25 @@ if selected == "Bot":
             st.markdown(prompt)
 
         with st.spinner(text="Thinking..."):
-            response = openai.ChatCompletion.create(
-                model=st.session_state["openai_model"],
-                messages=[
-                    {"role": m["role"], "content": m["content"]}
-                    for m in st.session_state.messages
-                ]
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt='\n'.join([f"{m['role']}: {m['content']}" for m in st.session_state.messages]),
+                temperature=0.7,
+                max_tokens=150,
+                stop=None
             )
 
-        full_response = response.choices[0].message["content"].strip()
+        full_response = response.choices[0].text.strip()
 
         with st.chat_message("assistant"):
             st.markdown(full_response)
 
-            
+            # Save TTS output to a unique file name
             tts = gTTS(full_response, lang='en')
             audio_file = f'assistant_response_{len(st.session_state.messages)}.mp3'
             tts.save(audio_file)
 
-            
+            # Display TTS audio
             st.audio(audio_file, format='audio/mp3', start_time=0)
 
         st.session_state.messages.append({"role": "assistant", "content": full_response})
