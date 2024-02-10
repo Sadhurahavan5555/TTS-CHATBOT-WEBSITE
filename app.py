@@ -47,7 +47,7 @@ if selected == "Bot":
     openai.api_key = st.secrets["API_KEY"]
 
     if "openai_model" not in st.session_state:
-        st.session_state["openai_model"] = "gpt-3.5-turbo"  # Placeholder model identifier
+        st.session_state["openai_model"] = "gpt-3.5-turbo" 
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -75,12 +75,12 @@ if selected == "Bot":
         with st.chat_message("assistant"):
             st.markdown(full_response)
 
-            # Save TTS output to a unique file name
+            
             tts = gTTS(full_response, lang='en')
             audio_file = f'assistant_response_{len(st.session_state.messages)}.mp3'
             tts.save(audio_file)
 
-            # Display TTS audio
+            
             st.audio(audio_file, format='audio/mp3', start_time=0)
 
         st.session_state.messages.append({"role": "assistant", "content": full_response})
