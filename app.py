@@ -5,9 +5,10 @@ from streamlit_extras.let_it_rain import rain
 from streamlit_option_menu import option_menu
 from gtts import gTTS
 import IPython.display as ipd
+import os
 
 img  = Image.open('Blue.png')
-st.set_page_config(page_title='CHAT WITH BLUE', page_icon=img,)
+st.set_page_config(page_title='CHAT WITH BLUE', page_icon=img)
 
 hide_main_style = """ 
         <style>
@@ -60,7 +61,7 @@ if selected == "Bot":
         with st.chat_message(user_message):
             st.markdown(prompt)
 
-        with st.chat_message(name = "assistant"):
+        with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
             for response in openai.ChatCompletion.create(
@@ -75,10 +76,12 @@ if selected == "Bot":
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)
 
+            # Save TTS output to a unique file name
             tts = gTTS(full_response, lang='en')
-            tts.save('assistant_response.mp3')
+            audio_file = f'assistant_response_{len(st.session_state.messages)}.mp3'
+            tts.save(audio_file)
 
-            st.audio('assistant_response.mp3', format='audio/mp3', start_time=0)
+            # Display TTS audio
+            st.audio(audio_file, format='audio/mp3', start_time=0)
 
         st.session_state.messages.append({"role": "assistant", "content": full_response})
-
