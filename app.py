@@ -29,8 +29,11 @@ with st.sidebar:
     )
 
 if selected == "Notes":
-    st.markdown("▸ I have used the OpenAi API key") 
-    st.markdown("▸ I have added a TTS(Text to Speech) and some GUI")
+    st.markdown("▸ By utilizing the OpenAI API key, I can help you take advantage of cutting-edge natural language processing technology. This will allow your application to analyze and generate text with remarkable accuracy and speed. The OpenAI API key provides access to a wide range of AI-powered language models that can be trained to perform various tasks such as language translation, sentiment analysis, and question-answering. 
+
+In addition to text analysis, I can also implement TTS (Text-to-Speech) functionality in your application. This feature will enable your users to listen to the generated text in a more natural and human-like voice. TTS technology uses advanced algorithms to convert written text into spoken words, which can be particularly useful for people with visual impairments or reading difficulties.
+
+Finally, I can create a user-friendly GUI (Graphical User Interface) that will make it easy for your users to interact with your application and access its features. The GUI can be designed to match your brand's look and feel and can include various widgets such as buttons, menus, and forms. This will provide your users with a seamless and intuitive experience.") 
     st.markdown("Check out my github:")
     st.link_button("GitHub","https://github.com/Sadhurahavan5555")
 
