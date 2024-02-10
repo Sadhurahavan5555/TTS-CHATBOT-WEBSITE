@@ -1,6 +1,6 @@
 gTTS
 ipython
-openai
+openai == 0.28.0
 Pillow
 streamlit
 streamlit_extras == 0.3.6 
