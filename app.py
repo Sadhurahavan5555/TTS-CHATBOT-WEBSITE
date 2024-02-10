@@ -40,7 +40,7 @@ if selected == "Contact":
 
 if selected == "Bot":
 
-    st.title("BLUE")
+    st.title("CHAT WITH BLUE👋")
     user_message = "👤"
     name = "🤖"
 
