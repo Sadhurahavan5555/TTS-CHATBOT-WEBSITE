@@ -47,7 +47,7 @@ if selected == "Bot":
     openai.api_key = st.secrets["API_KEY"]
 
     if "openai_model" not in st.session_state:
-        st.session_state["openai_model"] = "gpt-3.5-turbo"  # Placeholder model identifier
+        st.session_state["openai_model"] = "gpt-3.5-turbo"  
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -62,15 +62,15 @@ if selected == "Bot":
             st.markdown(prompt)
 
         with st.spinner(text="Thinking..."):
-            response = openai.Completion.create(
-                engine="text-davinci-003",
-                prompt='\n'.join([f"{m['role']}: {m['content']}" for m in st.session_state.messages]),
-                temperature=0.7,
-                max_tokens=150,
-                stop=None
+            response = openai.ChatCompletion.create(
+                model=st.session_state["openai_model"],
+                messages=[
+                    {"role": m["role"], "content": m["content"]}
+                    for m in st.session_state.messages
+                ]
             )
 
-        full_response = response.choices[0].text.strip()
+        full_response = response.choices[0].message["content"].strip()
 
         with st.chat_message("assistant"):
             st.markdown(full_response)
