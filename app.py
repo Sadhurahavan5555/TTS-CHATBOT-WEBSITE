@@ -33,8 +33,10 @@ if selected == "Notes":
             """
     ▸ Hello there! I'm excited to let you know that this website was created using OpenAI API key, Python, Streamlit, and other required libraries. These tools were used to design a 
     user-friendly interface that provides a seamless experience for you. 
+    
     ▸ If you're interested in exploring further, you can check out my GitHub where you'll find more information about the development process 
      and the different features of the website. There, you'll also find instructions on how you can modify the website for your own usage. 
+     
     ▸ I hope you find this website helpful and informative. If you have any questions or doubts about the website,
     please don't hesitate to reach out. I'd love to hear your feedback and suggestions as well. Thank you for visiting!
     """) 
